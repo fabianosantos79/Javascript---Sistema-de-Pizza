@@ -383,6 +383,7 @@ footer a{
     }
     aside.show {
         width:auto;
+        scroll-behavior: smooth;
     }
     .cart--area {
         width:100vw;

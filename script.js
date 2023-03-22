@@ -112,6 +112,28 @@ document.querySelector('.pizzaInfo--addButton').addEventListener('click', (e) =>
         })
     }
 
+    updateCart();
     document.querySelector('.pizzaWindowArea').style.display = 'none';
     
 })
+
+const updateCart = () => {
+    if(cart.length > 0){
+        document.querySelector('aside').classList.add('show');
+        document.querySelector('.cart').innerHTML ='';
+
+        for(let i in cart){
+            let pizzaItem = pizzaJson.find((item) => item.id == cart[i].id)
+
+            let cartItem = document.querySelector('.models .cart--item').cloneNode(true);
+
+            document.querySelector('aside .cart').append(cartItem);
+            
+            cartItem.querySelector('img').src = pizzaItem.img
+            cartItem.querySelector('.cart--item-nome').innerHTML = pizzaItem.name;
+        }
+
+    }else{
+        document.querySelector('aside').classList.remove('show');
+    }
+}
