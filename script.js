@@ -129,8 +129,37 @@ const updateCart = () => {
 
             document.querySelector('aside .cart').append(cartItem);
             
+
+            let pizzaSize;
+            switch (cart[i].size) {
+                case 0:
+                    pizzaSize = 'P'
+                    break;
+                case 1:
+                    pizzaSize = 'M'
+                    break;
+                case 2:
+                    pizzaSize = 'G'
+                    break;
+            }
+            let pizzaName = `${pizzaItem.name} (${pizzaSize})`;
+
             cartItem.querySelector('img').src = pizzaItem.img
-            cartItem.querySelector('.cart--item-nome').innerHTML = pizzaItem.name;
+            cartItem.querySelector('.cart--item-nome').innerHTML = pizzaName;
+            cartItem.querySelector('.cart--item--qt').innerHTML = cart[i].qtde;
+            cartItem.querySelector('.cart--item-qtmais').addEventListener('click', () => {
+                cart[i].qtde++;
+                updateCart(); 
+            })  
+            cartItem.querySelector('.cart--item-qtmenos').addEventListener('click', () => {
+
+                if(cart[i].qtde > 1){
+                    cart[i].qtde--;
+                }else{
+                    cart.splice(i, 1);
+                }
+                updateCart();
+            })            
         }
 
     }else{
