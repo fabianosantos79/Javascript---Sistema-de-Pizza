@@ -122,14 +122,20 @@ const updateCart = () => {
         document.querySelector('aside').classList.add('show');
         document.querySelector('.cart').innerHTML ='';
 
+        let subtotal = 0;
+        let desconto = 0;
+        let total = 0;
+
+
         for(let i in cart){
             let pizzaItem = pizzaJson.find((item) => item.id == cart[i].id)
+
+            subtotal += pizzaItem.price * cart[i].qtde;
 
             let cartItem = document.querySelector('.models .cart--item').cloneNode(true);
 
             document.querySelector('aside .cart').append(cartItem);
-            
-
+ 
             let pizzaSize;
             switch (cart[i].size) {
                 case 0:
@@ -161,6 +167,14 @@ const updateCart = () => {
                 updateCart();
             })            
         }
+
+        desconto = subtotal * 0.1;
+        total = subtotal - desconto;
+        
+        document.querySelector('.subtotal span:last-child').innerHTML = `R$ ${subtotal.toFixed(2)}`;
+        document.querySelector('.desconto span:last-child').innerHTML = `R$ ${desconto.toFixed(2)}`;
+        document.querySelector('.total span:last-child').innerHTML = `R$ ${total.toFixed(2)}`;
+        
 
     }else{
         document.querySelector('aside').classList.remove('show');
